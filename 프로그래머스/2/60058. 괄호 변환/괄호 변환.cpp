@@ -1,5 +1,6 @@
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ using namespace std;
 */
 
 // u, v를 사용해 올바른 괄호 문자열 결과를 가져다주는 함수
-string Recursive(string p) {
+string Recursive(string p, int depth) {
     string u = "";
     string v = "";
     
@@ -63,17 +64,29 @@ string Recursive(string p) {
     // 결과를 바탕으로 u와 v값 찾기
     u = p.substr(0, u_length);
     v = p.substr(u_length, p.length() - u_length);
+    cout << "depth " << depth << endl;
+    cout << "u : " << u << endl;
+    cout << "v : " << v << endl;
+    cout << "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" << endl;
     
     // u가 올바른지, 올바르지 않은지 기준으로 반환하기
     // 올바르다면, u에 v를 재귀적으로 수행한 결과를 붙이면 된다.
     if (correct_flag) {
-        return u + Recursive(v);
+        string corrected_v = Recursive(v, depth + 1);
+        string result = u + corrected_v;
+        cout << "depth " << depth << endl;
+        cout << "u : " << u << endl;
+        cout << "corrected_v : " << corrected_v << endl;
+        cout << "result : " << result << endl;
+        cout << "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" << endl;
+        return result;
     }
     
     // 올바르지 않다면, ( + v재귀 + ) + u의 처음 마지막 제거, 나머지 뒤집기를 반환한다.
     else {
         string result = "(";
-        result += Recursive(v);
+        string corrected_v = Recursive(v, depth + 1);
+        result += corrected_v;
         result += ")";
         
         for (int i = 1; i < u.length() - 1; i++) {
@@ -82,20 +95,17 @@ string Recursive(string p) {
             else 
                 result += '(';
         }
-        
+        cout << "depth " << depth << endl;
+        cout << "u : " << u << endl;
+        cout << "corrected_v : " << corrected_v << endl;
+        cout << "result : " << result << endl;
+        cout << "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ" << endl;
         return result;
     }
-        
-    /*
-        12345
-        12
-        cursor = 1;
-        5 - 2
-    */
 }
 
 string solution(string p) {
-    string answer = Recursive(p);
+    string answer = Recursive(p, 1);
     
     
     return answer;
