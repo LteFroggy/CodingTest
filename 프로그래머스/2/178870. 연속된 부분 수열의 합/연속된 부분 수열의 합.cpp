@@ -45,10 +45,10 @@ vector<int> solution(vector<int> sequence, int k) {
         }
         
         // sum이 k보다 크다면, 윈도우를 감소시킨다
-        // 대신에, 값 하나가 k보다 커버릴 수도 있으므로 이 경우에는 윈도우 자체를 뒤로 민다.
+        // 대신에, 값 하나가 k보다 커버릴 수도 있으므로 이 경우에는 종료시킨다.
+        // 종료시키는 이유는, 어차피 비내림차순이라 이것보다 더 가도 이보다 작은 값이 나올 일은 없기 때문
         else if (sum > k && front_idx == back_idx) {
-            sum -= sequence[front_idx++];
-            sum += sequence[++back_idx];
+            break;
         }
         
         // 그냥 크기만 하다면, 윈도우 감소
