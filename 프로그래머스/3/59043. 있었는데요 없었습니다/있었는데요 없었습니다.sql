@@ -1,0 +1,9 @@
+/*
+    관리자 실수로 입양일이 잘못 입력됐다.
+    보호 시작일보다 입양일이 더 빠른 동물의 아이디, 이름을 조회하자
+*/
+SELECT I.ANIMAL_ID, I.NAME
+FROM ANIMAL_INS I
+JOIN ANIMAL_OUTS O ON I.ANIMAL_ID = O.ANIMAL_ID
+WHERE O.DATETIME < I.DATETIME
+ORDER BY I.DATETIME ASC
